@@ -4,7 +4,7 @@ var app = express();
 var path = require('path');
 var request = require("request");
 var EventEmitter = require("events").EventEmitter;
-var info = new EventEmitter();
+var IPN = new EventEmitter();
 var urlencodedParser = bodyParser.urlencoded({extended: true});
 var md5 = require('md5');
 
@@ -22,10 +22,23 @@ app.get('/',  function(req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));// Opens your main html file
 });
 
-
+var merchant_id = '';//Insert merchant id here
 var vkey = "**********"; //Replace ********** with your MOLPay Secret_Key
 var key0;
 var key1;
+
+
+var enviroment = ""; //sandbox or production
+var URL;
+var payment_request;
+
+//choose your environment
+if (enviroment == "sandbox"){
+    URL = "https://sandbox.molpay.com/MOLPay/API/chkstat/returnipn.php"; //return ipn url
+}
+if (enviroment == "production"){
+    URL = "https://www.onlinepayment.com.my/MOLPay/API/chkstat/returnipn.php"; //return ipn url   
+}
 
 //****MANDATORY VARIABLES********//
 var nbcb; //Would always equal to 2 , which indicates this is a notification from MOLPay.
@@ -114,7 +127,7 @@ app.post('/returnurl', urlencodedParser, function(req, res){
 
     //It is mandatory for the postData to have a string of the variable name followed by a '&' and '='. Eg: "&orderid=" + orederid
     postData = "&treq=" + treq + "&amount=" + amount + "&orderid=" + orderid + "&tranID" + tranID + "&domain=" + domain + "&status=" + status+ "&appcode=" + appcode + "&paydate=" +paydate+ "&currency=" + currency + "&skey=" +skey+ "&error_code=" + error_code +"&error_desc=" +error_desc+ "&channel=" + channel;
-    info.postData = postData; //store postData values
+    IPN.postData = postData; //store postData values
 
     if ( nbcb==1 ) {
         //callback IPN feedback to notified MOLPay
@@ -124,15 +137,15 @@ app.post('/returnurl', urlencodedParser, function(req, res){
     }
     // The step above can be ignored for testing purposes, otherwise you are advised to put the code below into the else statement
 
-    info.emit("update");// Trigger request to post back to IPN
+    IPN.emit("update");// Trigger request to post back to IPN
 
 });
 
 
 //calls request to post back data for IPN (Instant Payment Notification)
-info.on('update', function () {
+IPN.on('update', function () {
     request.post({
-        url: 'https://sandbox.molpay.com/MOLPay/API/chkstat/returnipn.php',
+        url: URL,
         headers: {"Content-Type": "application/x-www-form-urlencoded"},
         body: postData
 
