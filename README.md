@@ -17,8 +17,9 @@ or you can just refer here https://www.npmjs.com/
 1. Download the app.js file
 2. Put app.js file in same directory with your project files.
 3. Open command prompt terminal,locate destination of app.js.
-4. Run 'node app.js' to execute file.
-
+4. Remember to change name inside app.js of 'index.html' to your own html page. (There is only 1 line with index.html)
+5. Run 'node app.js' to execute file.
+6. Open localhost based on given localhost server to access your web page.
 
 ### Usage
 Set which type of enviroment with either sandbox or production
@@ -81,4 +82,5 @@ Any amendment by your end is at your own risk.
 
 Changelog
 ----------
-1. 2018-04-23 - v1.0.1 - Initial Release
+1. 2018-04-23 - v1.0.0 - Initial Release
+1. 2018-04-23 - v1.0.1 
