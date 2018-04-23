@@ -65,7 +65,7 @@ var postData;
 
 app.post('/returnurl', urlencodedParser, function(req, res){
 
-    ncbc = req.body.ncbc;
+    nbcb = req.body.nbcb;
     amount = req.body.amount;
     orderid = req.body.orderid;
     tranID  = req.body.tranID ;
