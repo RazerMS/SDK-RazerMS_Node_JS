@@ -68,6 +68,26 @@ Set additional object for Notification & Callback URL
 nbcb=req.body.nbcb;
 ```
 
+#### Sample of all 3 endpoints
+E.G return & notification & callback URL (all 3 url are using this structure)
+```Javascript
+//invalid transaction if the key is different. Merchant might issue a requery to MOLPay to double check payment status with MOLPay. 
+ if(skey != key1){
+        status = -1; // Invalid transaction
+    }
+
+    if ( status == "00" ) {
+        if ( check_cart_amt(orderid, amount) ) {
+             /*** NOTE : this is a user-defined function which should be prepared by merchant ***/
+             // action to change cart status or to accept order
+             // you can also do further checking on the paydate as well
+            // write your script here .....
+        }
+    } else {
+        // failure action. Write your script here .....
+    }
+```
+
 Support
 -------
 Merchant Technical Support / Customer Care : support@molpay.com 
