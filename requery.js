@@ -1,6 +1,16 @@
 var request = require("request");
 var md5 = require('md5');
 
+var enviroment = "sandbox"; //sandbox or production
+var URL;
+
+if (enviroment == "sandbox"){
+    URL = 'https://sandbox.molpay.com'; //return ipn url
+} else if(enviroment == "production"){
+    URL = 'https://www.onlinepayment.com.my'; //return ipn url
+}
+
+
 //****MANDATORY VARIABLES******//
 
 var vkey = "******"; // //Replace ********** with your MOLPay Secret_Key
@@ -32,11 +42,11 @@ skey = md5(txID+ domain + vkey + amount); //Query by unique transaction ID (reco
 
 
 /**** REQUEST URL FOR DIFFERENT STATUS REQUERY  ****/
-reqURL = 'https://sandbox.molpay.com/MOLPay/q_by_tid.php';//Query by unique transaction ID (recommended)
-//reqURL = 'https://sandbox.molpay.com/MOLPay/query/q_by_oid.php'; //Query by order ID (single output)
-//reqURL = 'https://sandbox.molpay.com/MOLPay/query/q_oid_batch.php'; //Query by order ID (batch output)
-//reqURL = 'https://sandbox.molpay.com/MOLPay/query/q_by_oids.php';//Query by multiple order ID (batch output)
-//reqURL = 'https://sandbox.molpay.com/MOLPay/query/q_by_tids.php'; //Query by multiple transaction ID (batch output)
+reqURL = URL + '/MOLPay/q_by_tid.php';//Query by unique transaction ID (recommended)
+//reqURL = URL '/MOLPay/query/q_by_oid.php'; //Query by order ID (single output)
+//reqURL = URL '/MOLPay/query/q_oid_batch.php'; //Query by order ID (batch output)
+//reqURL = URL '/MOLPay/query/q_by_oids.php';//Query by multiple order ID (batch output)
+//reqURL = URL '/MOLPay/query/q_by_tids.php'; //Query by multiple transaction ID (batch output)
 
 
 //****OPTIONAL VARIABLES********//
