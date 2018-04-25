@@ -63,7 +63,7 @@ treq = "1" #Value is always 1. Do not change
 
 
 #### Notification & Callback URL with IPN 
-Set additional object for Notification & Callback URL 
+Get additional object for Notification & Callback URL 
 ```Python
 nbcb=req.body.nbcb;
 ```
@@ -88,6 +88,98 @@ E.G return & notification & callback URL (all 3 url are using this structure)
     }
 ```
 
+### Requery
+For ease of use,a requery feature is added separately as a different file(requery.js).
+The requery feature can be used to check the transaction history. The status query is sent to MOLPay system. 
+We have 5 type of requery method.
+1. Query by unique transaction ID (recommended)
+2. Query by order ID & get latest matched result (single output)
+3. Query by order ID & get all matched results (batch output)
+4. Query by multiple order ID (batch output)
+5. Query by multiple transaction ID (batch output)
+
+Set the values for requery. The following are variable names are fixed and should not be changed, however you only need to use variables that are needed for a specific requery. Other unused varibles can just be commented or left empty.
+
+Further instructions about which variables to use for each query are written within the codes. It is advised for merchant to take a look at the API specification documentation provided to them as well.
+
+#### Step 1: Insert values into variables that you want to use 
+```Javascript
+
+//****MANDATORY VARIABLES******//
+
+var vkey = "******"; // //Replace ********** with your MOLPay Secret_Key(MUST HAVE)
+var reqURL; // URL link for different requery request. See note below to know which URL to use
+var skey; //This is the data integrity protection hash string. See note below to know which formula to use
+
+var domain = ""; //Merchant ID in MOLPay system
+var amount = "";// Transaction amount
+var txID = "";//Unique transaction ID for tracking purpose.
+var oID = ""; //Merchant order ID, which might be duplicated.
+var oIDs = ""; //Merchant order ID, must be URLencoded. Please note that oIDS and oID is used for different purpose
+var delimiter = "|"; //Default is “|”. Avoid using any symbol that might exist in order ID, and also any of these: “,%, *, <, >, ? , \, $, &, =
+var tIDs = ""; //A group of transaction ID, must be URLencoded
+
+//****OPTIONAL VARIABLES********//
+
+var url = ""; // Merchant's URL web page to receive POST response from MOLPay
+var type= "0"; // set to 0 = for plaintext result(default),  1 = for result via POST method
+var format; //0 = result string with delimiter ( | ), 1 = result in array
+var req4token; // 0 = No(default), 1 = yes
+
+```
+
+#### Step 2: Select the URL that you wish to use based on the query method that you want to get 
+
+Chooese your link by uncommenting them. All URL links are commented within the codes. Below is a link to the sandbox version
+```Javascript
+
+reqURL = 'https://sandbox.molpay.com/MOLPay/q_by_tid.php';//Query by unique transaction ID (recommended)
+
+```
+
+#### Step 3: Select md5 method based on which query you wish to call
+
+Chooese your md5 method by uncommenting them. The variables for the formula are the ones that would be used. Unused varibles can just be left blank as it is. 
+```Javascript
+
+skey = md5(txID+ domain + vkey + amount); //Query by unique transaction ID (recommended)
+
+```
+
+#### Step 4: Comment out the variables that are unused
+
+```Javascript
+
+form: {
+
+        //Comment out those that are unused
+        /**Mandatory Variables **/
+        
+        amount: amount,
+        txID : txID,
+        tIDs : tIDs,
+        oID : oID,
+        oIDs : oIDs,
+        delimiter : delimiter,
+        domain: domain,
+        skey: skey
+
+        /**Optional**/
+
+        //url : url,
+        //type : type,
+        //format : format,
+        //req4token: req4token
+
+    }
+
+```
+
+#### Step 5 : Execute request.js via command promt: 'node request.js' or just run it from your IDE.
+The output response will be displayed in the console terminal. Optionally, you can send the Post response to to your web page to display it out.
+
+
+
 Support
 -------
 Merchant Technical Support / Customer Care : support@molpay.com 
@@ -103,4 +195,5 @@ Any amendment by your end is at your own risk.
 Changelog
 ----------
 1. 2018-04-23 - v1.0.0 - Initial Release
-1. 2018-04-23 - v1.0.1 
+2. 2018-04-23 - v1.0.1 
+3. 2018-04-25 - v1.0.2 - Added Requery feature in separate file 
