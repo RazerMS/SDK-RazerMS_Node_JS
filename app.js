@@ -111,6 +111,7 @@ app.post('/returnurl', urlencodedParser, function(req, res){
     key1 = md5( paydate+domain+key0+appcode+vkey );
 
     //control statement for verification
+    //invalid transaction if the key is different. Merchant might issue a requery to MOLPay to double check payment status with MOLPay.
     if(skey != key1){
         status = -1; // Invalid transaction
     }
