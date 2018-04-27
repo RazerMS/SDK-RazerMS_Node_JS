@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 //app.use('/css', express.static(path.join(__dirname, 'css')));
 //app.use('/images', express.static(path.join(__dirname, 'images')));
 
-// The '/' below can just ignore. Just make sure your codes are in the same folder or directory
+// The '/' below directs to the main folder where your main index.html file is. Just make sure your codes are in the same folder/directory
 app.get('/',  function(req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));// Opens your main html file
 });
@@ -151,7 +151,7 @@ IPN.on('update', function () {
         body: postData
 
     }, function(err, res, body) {
-        console.log(postData);
+        console.log(postData);// For display purpose only.Can be omitted
         if (err) {
             console.log(err);
         } else {
