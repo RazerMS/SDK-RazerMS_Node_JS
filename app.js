@@ -30,7 +30,7 @@ var key1;
 
 var enviroment = ""; //sandbox or production
 var URL;
-var payment_request;
+
 
 //choose your environment
 if (enviroment == "sandbox"){
