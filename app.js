@@ -10,9 +10,9 @@ var md5 = require('md5');
 var unirest = require('unirest');
 app.use(bodyParser.json());
 
-//***NOTE: The commented codes below are used to call static items if you are using css and images.
+//***NOTE: The app.use codes below are used to call static items if you are using css and images.
 //This will allow you to access your css and images when you execute this codes in localhost
-//Alternately you can create public a folder/director  '/public' to and put all our files there
+//Alternately you can create public a folder/directory '/public'  and put all your files there
 
 app.use('/css', express.static(path.join(__dirname, 'css')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
@@ -61,6 +61,7 @@ var postData;
 //Handles post data, a directory '/returnurl' is created to receive post data
 //Make sure you have a hidden input in your main html that includes your return url link
 //The '/returnurl' below can be changed to your own return url link name/directory
+//This is the same if you want to use it for your callback url
 
 app.post('/returnurl', urlencodedParser, function(req, res){
 
