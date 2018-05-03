@@ -65,7 +65,7 @@ var postData;
 
 app.post('/returnurl', urlencodedParser, function(req, res){
 
-    //nbcb = req.body.nbcb; //Optional
+    //nbcb = req.body.nbcb; //Optional, needed for callback url script only
     amount = req.body.amount;
     orderid = req.body.orderid;
     tranID  = req.body.tranID ;
@@ -143,7 +143,7 @@ app.post('/returnurl', urlencodedParser, function(req, res){
         //normal IPN and redirection
     }
     */
-    // The commented step above can be ignored for testing purposes, otherwise you are advised to put the code below into the else statement
+    // The commented step above is for callback url script and can be ignored, otherwise you are advised to put the code below into the else statement
    
     IPN.emit("update");// Trigger request to post back to IPN
 
