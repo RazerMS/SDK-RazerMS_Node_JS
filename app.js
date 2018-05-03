@@ -7,37 +7,36 @@ var EventEmitter = require("events").EventEmitter;
 var IPN = new EventEmitter();
 var urlencodedParser = bodyParser.urlencoded({extended: true});
 var md5 = require('md5');
-
+var unirest = require('unirest');
 app.use(bodyParser.json());
 
 //***NOTE: The commented codes below are used to call static items if you are using css and images.
 //This will allow you to access your css and images when you execute this codes in localhost
 //Alternately you can create public a folder/director  '/public' to and put all our files there
 
-//app.use('/css', express.static(path.join(__dirname, 'css')));
-//app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/css', express.static(path.join(__dirname, 'css')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
-// The '/' below directs to the main folder where your main index.html file is. Just make sure your codes are in the same folder/directory
+// The '/' below can just ignore. Just make sure your codes are in the same folder or directory
 app.get('/',  function(req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));// Opens your main html file
 });
 
-var merchant_id = '';//Insert merchant id here
+//var merchant_id = '';//Insert merchant id here
 var vkey = "**********"; //Replace ********** with your MOLPay Secret_Key
 var key0;
 var key1;
 
 
-var enviroment = ""; //sandbox or production
+var enviroment = "sandbox"; //sandbox or production
 var URL;
 
 
 //choose your environment
 if (enviroment == "sandbox"){
     URL = "https://sandbox.molpay.com/MOLPay/API/chkstat/returnipn.php"; //return ipn url
-}
-if (enviroment == "production"){
-    URL = "https://www.onlinepayment.com.my/MOLPay/API/chkstat/returnipn.php"; //return ipn url   
+} else if(enviroment == "production"){
+    URL = "https://www.onlinepayment.com.my/MOLPay/API/chkstat/returnipn.php"; //return ipn url
 }
 
 //****MANDATORY VARIABLES********//
@@ -65,7 +64,7 @@ var postData;
 
 app.post('/returnurl', urlencodedParser, function(req, res){
 
-    nbcb = req.body.nbcb;
+    //nbcb = req.body.nbcb; //Optional
     amount = req.body.amount;
     orderid = req.body.orderid;
     tranID  = req.body.tranID ;
@@ -79,7 +78,7 @@ app.post('/returnurl', urlencodedParser, function(req, res){
     error_desc = req.body.error_desc;
     channel = req.body.channel;
 
-     //The following response codes are used to display the output in '/returnurl'  and in the console
+    //The following response codes are used to display the output in '/returnurl'  and in the console
     //This can also be used as a receipt, you can change the way the output is displayed if you like
     response = {
         amount,
@@ -111,33 +110,40 @@ app.post('/returnurl', urlencodedParser, function(req, res){
     key1 = md5( paydate+domain+key0+appcode+vkey );
 
     //control statement for verification
-    //invalid transaction if the key is different. Merchant might issue a requery to MOLPay to double check payment status with MOLPay.
+    //invalid transaction if the key is different. Merchant might issue a requery to MOLPay to double check payment status with MOLPay. 
     if(skey != key1){
         status = -1; // Invalid transaction
+        console.log('Invalid');
+    }else
+    {
+        console.log('Approved');
     }
 
+    //If payment success
     if ( status == "00" ) {
         if ( check_cart_amt(orderid, amount) ) {
-            //check_cart_amt(orderid, amount) should be a merchant defined function
+           /*** NOTE : this is a user-defined function which should be prepared by merchant ***/
+            // action to change cart status or to accept order
+            // you can also do further checking on the paydate as well
             // write your script here .....
         }
     } else {
-        // failure action
-        // write your script here .....
+        // failure action. Write your script here .....
+        // Merchant might send query to MOLPay using Merchant requery
+        // to double check payment status for that particular order.
     }
+    
 
-    //It is mandatory for the postData to have a string of the variable name followed by a '&' and '='. Eg: "&orderid=" + orederid
-    postData = "&treq=" + treq + "&amount=" + amount + "&orderid=" + orderid + "&tranID" + tranID + "&domain=" + domain + "&status=" + status+ "&appcode=" + appcode + "&paydate=" +paydate+ "&currency=" + currency + "&skey=" +skey+ "&error_code=" + error_code +"&error_desc=" +error_desc+ "&channel=" + channel;
-    IPN.postData = postData; //store postData values
-
+    /*
     if ( nbcb==1 ) {
         //callback IPN feedback to notified MOLPay
         console.log("CBTOKEN:MPSTATOK")
     }else{
         //normal IPN and redirection
     }
-    // The step above can be ignored for testing purposes, otherwise you are advised to put the code below into the else statement
-
+    */
+    // The commented step above can be ignored for testing purposes, otherwise you are advised to put the code below into the else statement
+   
     IPN.emit("update");// Trigger request to post back to IPN
 
 });
@@ -145,20 +151,40 @@ app.post('/returnurl', urlencodedParser, function(req, res){
 
 //calls request to post back data for IPN (Instant Payment Notification)
 IPN.on('update', function () {
+
     request.post({
-        url: URL,
+        uri: URL,
         headers: {"Content-Type": "application/x-www-form-urlencoded"},
-        body: postData
+        form:  {
+
+            treq : treq,
+            amount : amount,
+            orderid : orderid,
+            tranID : tranID,
+            domain : domain,
+            status : status,
+            appcode : appcode,
+            paydate : paydate,
+            currency : currency,
+            skey : skey,
+            error_code :error_code,
+            error_desc : error_desc,
+            channel : channel
+
+        }
 
     }, function(err, res, body) {
-        console.log(postData);// For display purpose only.Can be omitted
+        console.log(postData);
         if (err) {
             console.log(err);
         } else {
             console.log("done");
+            console.log(URL);
             console.log(body);
         }
     });
+
+
 });
 
 
