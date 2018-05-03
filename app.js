@@ -7,7 +7,7 @@ var EventEmitter = require("events").EventEmitter;
 var IPN = new EventEmitter();
 var urlencodedParser = bodyParser.urlencoded({extended: true});
 var md5 = require('md5');
-var unirest = require('unirest');
+
 app.use(bodyParser.json());
 
 //***NOTE: The app.use codes below are used to call static items if you are using css and images.
