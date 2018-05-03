@@ -23,7 +23,7 @@ app.get('/',  function(req, res) {
 });
 
 //var merchant_id = '';//Insert merchant id here
-var vkey = "27ced940910628c8cd2800b71e06b099"; //Replace ********** with your MOLPay Secret_Key
+var vkey = "**********"; //Replace ********** with your MOLPay Secret_Key
 var key0;
 var key1;
 
@@ -64,7 +64,7 @@ var postData;
 
 app.post('/returnurl', urlencodedParser, function(req, res){
 
-    nbcb = req.body.nbcb;
+    //nbcb = req.body.nbcb; //Optional
     amount = req.body.amount;
     orderid = req.body.orderid;
     tranID  = req.body.tranID ;
@@ -110,6 +110,7 @@ app.post('/returnurl', urlencodedParser, function(req, res){
     key1 = md5( paydate+domain+key0+appcode+vkey );
 
     //control statement for verification
+    //invalid transaction if the key is different. Merchant might issue a requery to MOLPay to double check payment status with MOLPay. 
     if(skey != key1){
         status = -1; // Invalid transaction
         console.log('Invalid');
@@ -118,22 +119,20 @@ app.post('/returnurl', urlencodedParser, function(req, res){
         console.log('Approved');
     }
 
-    /*
+    //If payment success
     if ( status == "00" ) {
         if ( check_cart_amt(orderid, amount) ) {
-            //check_cart_amt(orderid, amount) should be a merchant defined function
+           /*** NOTE : this is a user-defined function which should be prepared by merchant ***/
+            // action to change cart status or to accept order
+            // you can also do further checking on the paydate as well
             // write your script here .....
         }
     } else {
-        // failure action
-        // write your script here .....
+        // failure action. Write your script here .....
+        // Merchant might send query to MOLPay using Merchant requery
+        // to double check payment status for that particular order.
     }
-    */
-
-    //It is mandatory for the postData to have a string of the variable name followed by a '&' and '='. Eg: "&orderid=" + orederid
-    postData = "&treq=" + treq + "&amount=" + amount + "&orderid=" + orderid + "&tranID" + tranID + "&domain=" + domain + "&status=" + status+ "&appcode=" + appcode + "&paydate=" +paydate+ "&currency=" + currency + "&skey=" +skey+ "&error_code=" + error_code +"&error_desc=" +error_desc+ "&channel=" + channel;
-    IPN.postData = postData; //store postData values
-
+    
 
     /*
     if ( nbcb==1 ) {
@@ -142,9 +141,9 @@ app.post('/returnurl', urlencodedParser, function(req, res){
     }else{
         //normal IPN and redirection
     }
-    // The step above can be ignored for testing purposes, otherwise you are advised to put the code below into the else statement
     */
-    console.log(nbcb);
+    // The commented step above can be ignored for testing purposes, otherwise you are advised to put the code below into the else statement
+   
     IPN.emit("update");// Trigger request to post back to IPN
 
 });
