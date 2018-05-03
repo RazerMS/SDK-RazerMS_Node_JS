@@ -174,12 +174,10 @@ IPN.on('update', function () {
         }
 
     }, function(err, res, body) {
-        console.log(postData);
         if (err) {
             console.log(err);
         } else {
             console.log("done");
-            console.log(URL);
             console.log(body);
         }
     });
