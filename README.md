@@ -197,3 +197,4 @@ Changelog
 1. 2018-04-23 - v1.0.0 - Initial Release
 2. 2018-04-23 - v1.0.1 
 3. 2018-04-25 - v1.0.2 - Added Requery feature in separate file 
+4. 2018-05-3 - v1.0.3 - Fixed IPN request 
