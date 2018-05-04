@@ -55,7 +55,7 @@ var error_desc;
 var channel;
 
 var treq = 1;
-var postData;
+
 
 
 //Handles post data, a directory '/returnurl' is created to receive post data
