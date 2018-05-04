@@ -32,7 +32,7 @@ Set these needed objects that will send the buyer infromation to MOLPay hosted p
 merchant_id = ''; //Insert merchant id here
 vkey = ''; //Insert Verify Key here
 amount = '61.01'; //Insert amount here
-orderid = '601'; //Insert order id here
+orderid = 'OD601'; //Insert order id here, order ID shoud be random generated value by merchant developer side
 ```
 It is not needed to set all the Endpoint URLs. If not set,by default the Endpoint URLs would be taken from Merchant Portal's End Point settings.
 ```html
