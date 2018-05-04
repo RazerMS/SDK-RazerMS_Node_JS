@@ -51,7 +51,7 @@ reqURL = URL + '/MOLPay/q_by_tid.php';//Query by unique transaction ID (recommen
 
 //****OPTIONAL VARIABLES********//
 
-var url = ""; // Merchant's URL web page to receive POST response from MOLPay
+var url = ""; // Merchant's url web page to receive POST response from MOLPay
 var type= "0"; // set to 0 = for plaintext result(default),  1 = for result via POST method
 var format; //0 = result string with delimiter ( | ), 1 = result in array
 var req4token; // 0 = No(default), 1 = yes
@@ -59,7 +59,7 @@ var req4token; // 0 = No(default), 1 = yes
 //If varibles are not used, can be left blank as it is
 
 var options = {
-    url: reqURL,
+    uri: reqURL, // send request to link
     headers: {"Content-Type": "application/x-www-form-urlencoded"},
     form: {
 
@@ -76,7 +76,7 @@ var options = {
 
         /**Optional**/
 
-        //url : url,
+        //url : url, //***NOTE: This url refers to merchant's page to receive POST response from MOLPay. Do not confuse with uri
         //type : type,
         //format : format,
         //req4token: req4token
