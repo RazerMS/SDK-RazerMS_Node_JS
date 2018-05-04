@@ -27,17 +27,17 @@ enviroment = "sandbox" #or "production"
 
 ### Payment Page integration
 Set these needed objects that will send the buyer infromation to MOLPay hosted payment page.
-```Python
+```Javascript
 #Value set are examples
-merchant_id = '' #Insert merchant id here
-vkey = '' #Insert Verify Key here
-amount = '61.01' #Insert amount here
-orderid = '601' #Insert order id here
+merchant_id = ''; //Insert merchant id here
+vkey = ''; //Insert Verify Key here
+amount = '61.01'; //Insert amount here
+orderid = '601'; //Insert order id here
 ```
 It is not needed to set all the Endpoint URLs. If not set,by default the Endpoint URLs would be taken from Merchant Portal's End Point settings.
 ```html
 <!-- Value set are examples -->
-<input type="hidden" name="returnurl" id="returnurl" value="http://127.0.0.1:5000/returnurl">
+<input type="hidden" name="returnurl" id="returnurl" value="http://127.0.0.1:8000/returnurl">
 ```
 ### Payment endpoint integration
 Set the values received from MOLPay's payment page.
@@ -59,7 +59,7 @@ channel = req.body.channel;
 ### IPN(Instant Payment Notification)
 Additional object must be set when using IPN
 
-treq = "1" #Value is always 1. Do not change
+treq = "1" //Value is always 1. Do not change
 
 
 #### Notification & Callback URL with IPN 
