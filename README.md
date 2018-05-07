@@ -90,6 +90,24 @@ E.G return & notification & callback URL (all 3 url are using this structure)
     }
 ```
 
+### Additional Requirements for Seamless Integration
+If you are using the Seamless version, please ensure that you include this line of code in your html
+```html
+<script type="text/javascript" src="app.js"></script>
+```
+
+Also, remember to set the environment that you want to work in by including the script src below.
+
+For sandbox:
+```html
+<script src="https://sandbox.molpay.com/MOLPay/API/seamless/3.16/js/MOLPay_seamless.deco.js"></script>
+```
+
+For production:
+```html
+ <script src="https://www.onlinepayment.com.my/MOLPay/API/seamless/3.17/js/MOLPay_seamless.deco.js"></script>
+```
+
 ### Requery
 For ease of use,a requery feature is added separately as a different file(requery.js).
 The requery feature can be used to check the transaction history. The status query is sent to MOLPay system. 
