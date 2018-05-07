@@ -10,8 +10,10 @@ MOLPay Node_JS SDK
 6. MOLPay Development or Production ID.
 7. MOLPay General API.
 
-The packages can be easily installed on windows via npm install <packagename> 
-or you can just refer here https://www.npmjs.com/
+For ease of use, a demo version has been uploaded along with a sample html file and all required node modules in a zip file.
+If there is any trouble in using the uploaded package modules, the packages can be easily installed on windows via npm install <packagename> 
+or you can just refer here https://www.npmjs.com/ .
+
   
 ### Installation
 1. Download the app.js file
@@ -198,3 +200,4 @@ Changelog
 2. 2018-04-23 - v1.0.1 
 3. 2018-04-25 - v1.0.2 - Added Requery feature in separate file 
 4. 2018-05-3 - v1.0.3 - Fixed IPN request 
+5. 2018-05-7 - v1.0.4 - Uploaded demo version for both seamless and normal integration
