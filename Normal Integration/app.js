@@ -151,6 +151,11 @@ app.post('/returnurl', urlencodedParser, function(req, res){
 
 });
 
+//To handle cancel request
+app.post('/cancelurl', urlencodedParser, function(req, res){
+    res.send("You have cancelled order. Thank you");
+})
+
 
 //calls request to post back data for IPN (Instant Payment Notification)
 IPN.on('update', function () {
