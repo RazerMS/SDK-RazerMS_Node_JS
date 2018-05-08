@@ -28,11 +28,8 @@ app.get('/',  function(req, res) {
 var vkey = "**********"; //Replace ********** with your MOLPay Secret_Key
 var key0;
 var key1;
-
-
 var enviroment = "sandbox"; //sandbox or production
 var URL;
-
 
 //choose your environment
 if (enviroment == "sandbox"){
@@ -57,8 +54,6 @@ var error_desc;
 var channel;
 
 var treq = 1;
-
-
 
 //Handles post data, a directory '/returnurl' is created to receive post data
 //Make sure you have a hidden input in your main html that includes your return url link
@@ -154,12 +149,10 @@ app.post('/returnurl', urlencodedParser, function(req, res){
 
 //calls request to post back data for IPN (Instant Payment Notification)
 IPN.on('update', function () {
-
     request.post({
         uri: URL,
         headers: {"Content-Type": "application/x-www-form-urlencoded"},
         form:  {
-
             treq : treq,
             amount : amount,
             orderid : orderid,
@@ -184,8 +177,6 @@ IPN.on('update', function () {
             console.log(body);
         }
     });
-
-
 });
 
 
