@@ -220,3 +220,4 @@ Changelog
 4. 2018-05-3 - v1.0.3 - Fixed IPN request 
 5. 2018-05-7 - v1.0.4 - Uploaded demo version for both seamless and normal integration
 6. 2018-05-8 - v1.0.5 - Updated IPN request for Seamless version
+7. 2018-05-14 - v1.0.6 - Updated Demo sample
