@@ -40,14 +40,14 @@ var mpsmerchantid;
 var mpschannel;
 var mpsamount;
 var mpsorderid;
-var  mpsbill_name;
-var  mpsbill_email;
-var  mpsbill_mobile;
-var  mpsbill_desc;
-var  mpscountry;
-var  mpsvcode;
-var  mpscurrency;
-var  mpslangcode;
+var mpsbill_name;
+var mpsbill_email;
+var mpsbill_mobile;
+var mpsbill_desc;
+var mpscountry;
+var mpsvcode;
+var mpscurrency;
+var mpslangcode;
 var mpstimer;
 var mpstimerbox;
 var mpscancelurl;
@@ -117,10 +117,8 @@ function MolPayObj(req,res){
             mpsapiversion
         };
 
-        console.log(response);
-
-        //convert the response in JSON format and print it to '/returnurl'
-        res.send(JSON.stringify(response));
+        console.log(response); // Display to console
+        res.send(JSON.stringify(response)); //convert the response in JSON format and print it to '/returnurl'
 
         Default = Default + 1; // DO NOT CHANGE THIS. This is to ensure the entire function won't be called twice
     }else
@@ -136,7 +134,8 @@ function MolPayObj(req,res){
         error_code = req.body.error_code;
         error_desc = req.body.error_desc;
         channel = mpschannel;
-
+        
+        //The following response codes are used to display the output in '/returnurl'  and in the console
         check = {
             amount,
             orderid,
@@ -152,10 +151,9 @@ function MolPayObj(req,res){
             channel
 
         };
-
-        res.end(JSON.stringify(check));
-
+        
         console.log(check);
+        res.end(JSON.stringify(check));//convert the response in JSON format and print it to '/returnurl'
         IPN.emit("update"); // Trigger request to post back to IPN
     }
 
@@ -207,9 +205,32 @@ IPN.on('update', function () {
     });
 });
 
-
 var server = app.listen(8080, '127.0.0.1',function(){
     var host = server.address().address;
     var port = server.address().port;
     console.log("Example app listening at http://%s:%s", host, port);
 });
+
+/*
+ * The MIT License
+ *
+ * Copyright 2018 MOLPay Sdn Bhd.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
