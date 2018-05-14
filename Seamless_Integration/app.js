@@ -118,8 +118,6 @@ function MolPayObj(req,res){
         };
 
         console.log(response); // Display to console
-        res.send(JSON.stringify(response)); //convert the response in JSON format and print it to '/returnurl'
-
         Default = Default + 1; // DO NOT CHANGE THIS. This is to ensure the entire function won't be called twice
     }else
     {
