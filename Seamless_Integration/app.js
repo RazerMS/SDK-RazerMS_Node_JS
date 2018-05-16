@@ -94,9 +94,8 @@ function MolPayObj(req,res){
         mpsapiversion = "3.16"; //**NOTE:  For production use 3.17 / Sandbox use 3.16
 
         //The following response codes are used to display the output in '/returnurl'  and in the console
-        //This can also be used as a receipt, you can change the way the output is displayed if you like
-        response = {
-
+        //This is to display all the parameters on console to check if they are correct
+        check = {
             status,
             mpsmerchantid,
             mpschannel ,
@@ -117,7 +116,7 @@ function MolPayObj(req,res){
             mpsapiversion
         };
 
-        console.log(response); // Display to console
+        console.log(check); // Display to console
         Default = Default + 1; // DO NOT CHANGE THIS. This is to ensure the entire function won't be called twice
     }else
     {
@@ -134,7 +133,8 @@ function MolPayObj(req,res){
         channel = mpschannel;
         
         //The following response codes are used to display the output in '/returnurl'  and in the console
-        check = {
+        //This can also be used as a receipt, you can change the way the output is displayed if you like
+        response = {
             amount,
             orderid,
             tranID,
@@ -147,11 +147,10 @@ function MolPayObj(req,res){
             error_code,
             error_desc,
             channel
-
         };
         
-        console.log(check);
-        res.end(JSON.stringify(check));//convert the response in JSON format and print it to '/returnurl'
+        console.log(response);
+        res.end(JSON.stringify(response));//convert the response in JSON format and print it to '/returnurl'
         IPN.emit("update"); // Trigger request to post back to IPN
     }
 
