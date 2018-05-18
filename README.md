@@ -1,6 +1,5 @@
-# Node_JS-SDK
-MOLPay Node_JS SDK
-
+## Integrating MOLPay with Node.js SDK
+![MOLPay Technical Teams](https://github.com/MOLPay/Prestashop_Plugin/wiki/images/molpay-developer.jpg)
 ### Pre-Requisite
 1. Node Js installed(preferably latest version)
 2. Install package md5
