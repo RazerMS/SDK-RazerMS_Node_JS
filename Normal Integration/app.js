@@ -112,9 +112,11 @@ app.post('/returnurl', urlencodedParser, function(req, res){
     if(skey != key1){
         status = -1; // Invalid transaction
         console.log('Invalid');
+         // failure action. Write your script here .....
     }else
     {
         console.log('Approved');
+         //Write your script here .....
     }
 
     //If payment success
