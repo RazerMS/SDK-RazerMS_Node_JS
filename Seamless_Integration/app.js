@@ -55,7 +55,6 @@ var mpsreturnurl;
 var mpsapiversion;
 
 var amount;
-var orderid;
 var tranID;
 var domain;
 var appcode;
@@ -91,10 +90,10 @@ function MolPayObj(req,res){
         mpstimerbox = "#counter";
         mpsreturnurl = "http://127.0.0.1:8080/returnurl"; // Enter your return url here
         mpscancelurl = "http://127.0.0.1:8080/cancelurl"; // Enter your cancel url here
-        mpsapiversion = "3.16"; //**NOTE:  For production use 3.17 / Sandbox use 3.16
+        mpsapiversion = "latest"; //**NOTE:  For production use 3.17 / Sandbox use 3.16
 
-        //The following response codes are used to display the output in '/returnurl'  and in the console
-        //This is to display all the parameters on console to check if they are correct
+        //The following response codes are used to display the above parameters in the console
+        //This is to ensure and check all the parameters are correct for testing purpose
         check = {
             status,
             mpsmerchantid,
@@ -117,6 +116,7 @@ function MolPayObj(req,res){
         };
 
         console.log(check); // Display to console
+        res.send(JSON.stringify(check));//convert the check array into JSON format and parse it to '/returnurl'
         Default = Default + 1; // DO NOT CHANGE THIS. This is to ensure the entire function won't be called twice
     }else
     {
@@ -131,7 +131,7 @@ function MolPayObj(req,res){
         error_code = req.body.error_code;
         error_desc = req.body.error_desc;
         channel = mpschannel;
-        
+
         //The following response codes are used to display the output in '/returnurl'  and in the console
         //This can also be used as a receipt, you can change the way the output is displayed if you like
         response = {
@@ -148,16 +148,15 @@ function MolPayObj(req,res){
             error_desc,
             channel
         };
-        
+
         console.log(response);
-        res.end(JSON.stringify(response));//convert the response in JSON format and print it to '/returnurl'
+        res.end(JSON.stringify(response));//convert the response into JSON format and print it to '/returnurl'
         IPN.emit("update"); // Trigger request to post back to IPN
     }
 
 }
 
 //Handles post data, a directory '/returnurl' is created to receive post data
-//Make sure you have a hidden input in your main html that includes your return url link
 //The '/returnurl' below can be changed to your own return url link name/directory
 //This is the same if you want to use it for your callback url
 
