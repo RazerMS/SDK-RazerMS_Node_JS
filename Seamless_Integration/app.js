@@ -90,7 +90,7 @@ function MolPayObj(req,res){
         mpstimerbox = "#counter";
         mpsreturnurl = "http://127.0.0.1:8080/returnurl"; // Enter your return url here
         mpscancelurl = "http://127.0.0.1:8080/cancelurl"; // Enter your cancel url here
-        mpsapiversion = "latest"; //**NOTE:  For production use 3.17 / Sandbox use 3.16
+        mpsapiversion = "latest"; //**NOTE:  For production use '3.17' / Sandbox use 'latest'
 
         //The following response codes are used to display the above parameters in the console
         //This is to ensure and check all the parameters are correct for testing purpose
