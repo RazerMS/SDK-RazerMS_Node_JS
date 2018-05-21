@@ -1,7 +1,7 @@
 ## Integrating MOLPay with Node.js SDK
 ![MOLPay Technical Teams](https://github.com/MOLPay/Prestashop_Plugin/wiki/images/molpay-developer.jpg)
 
-(Version 1.0.6 Updated)
+Version 1.0.7 (Updated)
 
 ### Pre-Requisite
 1. Node Js installed(preferably latest version)
@@ -27,8 +27,9 @@ or you can just refer here https://www.npmjs.com/ .
 
 ### Usage
 Set which type of enviroment with either sandbox or production
-enviroment = "sandbox" #or "production"
-
+```Javascript
+var enviroment = "sandbox" or "production"
+```
 ### Payment Page integration
 Set these needed objects that will send the buyer infromation to MOLPay hosted payment page.
 ```Javascript
@@ -223,3 +224,4 @@ Changelog
 5. 2018-05-7 - v1.0.4 - Uploaded demo version for both seamless and normal integration
 6. 2018-05-8 - v1.0.5 - Updated IPN request for Seamless version
 7. 2018-05-14 - v1.0.6 - Updated Demo sample
+8. 2018-05-21 - v1.0.7 - Updated Seamless version
