@@ -25,7 +25,7 @@ app.get('/',  function(req, res) {
 });
 
 //var merchant_id = '';//Insert merchant id here
-var vkey = "**********"; //Replace ********** with your MOLPay Secret_Key
+var secret_key = "**********"; //Replace ********** with your MOLPay Secret_Key
 var key0;
 var key1;
 var enviroment = "sandbox"; //sandbox or production
@@ -104,8 +104,8 @@ app.post('/returnurl', urlencodedParser, function(req, res){
      * To verify the data integrity sending by MOLPay
      ************************************************************/
     //md5 encryption
-    key0 = md5( tranID+orderid+status+domain+amount+currency );
-    key1 = md5( paydate+domain+key0+appcode+vkey );
+    key0 = md5(tranID +orderid + status + domain + amount + currency);
+    key1 = md5(paydate + domain + key0 + appcode + secret_key);
 
     //control statement for verification
     //invalid transaction if the key is different. Merchant might issue a requery to MOLPay to double check payment status with MOLPay. 
