@@ -96,8 +96,8 @@ function MolPayObj(req,res){
         mpscancelurl = "http://127.0.0.1:8080/cancelurl"; // Enter your cancel url here
         mpsapiversion = "latest"; //**NOTE:  For production use '3.17' / Sandbox use 'latest'
 
-        //The following response codes are used to display the above parameters in the console
-        //This is to ensure and check all the parameters are correct for testing purpose
+        //The following response codes are used to parse the above parameters to the '/returnurl'
+        //This can also be displayed in the console to ensure and check all the parameters are correct for testing purpose
         check = {
             status,
             mpsmerchantid,
