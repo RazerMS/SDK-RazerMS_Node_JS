@@ -70,7 +70,7 @@ var secret_key = "***********";//Replace ********** with your MOLPay Private Sec
         mpstimerbox = "#counter";
         mpsreturnurl = "http://127.0.0.1:8080/returnurl"; // Enter your return url here
         mpscancelurl = "http://127.0.0.1:8080/cancelurl"; // Enter your cancel url here
-        mpsapiversion = "latest"; //**NOTE:  For production use '3.17' / Sandbox use 'latest'
+        mpsapiversion = "3.16"; //**NOTE:  For production use '3.17' / Sandbox use '3.16'
 ```
 
 Please request merchant ID and vkey from Merchant Technical Support / Customer Care : support@molpay.com . The order ID can be anything.
