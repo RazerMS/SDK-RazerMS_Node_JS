@@ -225,3 +225,4 @@ Changelog
 6. 2018-05-8 - v1.0.5 - Updated IPN request for Seamless version
 7. 2018-05-14 - v1.0.6 - Updated Demo sample
 8. 2018-05-21 - v1.0.7 - Updated Seamless version
+9. 2018-06-27 - v1.1.0 - Updated Seamless Demo. Added data verification method
