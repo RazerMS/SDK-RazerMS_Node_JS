@@ -2,10 +2,10 @@
 
 ### Pre-Requisite
 1. Node Js installed(preferably latest version)
-2. Install package md5
-3. Install package request
-4. Install package express
-5. Install package body-pareser
+2. npm install md5
+3. npm install request
+4. npm install express
+5. npm install body-parser
 6. MOLPay Development or Production ID.
 7. MOLPay General API.
 
