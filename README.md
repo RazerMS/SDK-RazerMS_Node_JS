@@ -1,4 +1,4 @@
-## Integrating MOLPay with Node.js SDK
+## Integrating Razer Merchant Services with Node.js SDK
 <img src="https://user-images.githubusercontent.com/38641542/74423739-b4440a00-4e8b-11ea-8d95-016d25d26e87.jpg" style="max-width:100%;">
 Version 1.0.7 (Updated)
 
@@ -204,12 +204,12 @@ The output response will be displayed in the console terminal. Optionally, you c
 
 Support
 -------
-Merchant Technical Support / Customer Care : support@molpay.com 
-Marketing Campaign : marketing@molpay.com 
-Channel/Partner Enquiry : channel@molpay.com 
-Media Contact : media@molpay.com 
-R&D and Tech-related Suggestion : technical@molpay.com 
-Abuse Reporting : abuse@molpay.com
+Merchant Technical Support / Customer Care : support-sa@razer.com 
+Marketing Campaign : marketing-sa@razer.com 
+Channel/Partner Enquiry : channel-sa@razer.com 
+Media Contact : media@-sa@razer.com 
+R&D and Tech-related Suggestion : technical-sa@razer.com 
+Abuse Reporting : abuse-sa@razer.com
 
 ### Disclaimer
 Any amendment by your end is at your own risk.
