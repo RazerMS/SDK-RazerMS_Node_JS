@@ -1,6 +1,5 @@
 ## Integrating MOLPay with Node.js SDK
-![MOLPay Technical Teams](https://github.com/MOLPay/Prestashop_Plugin/wiki/images/molpay-developer.jpg)
-
+<img src="https://user-images.githubusercontent.com/38641542/74423739-b4440a00-4e8b-11ea-8d95-016d25d26e87.jpg" style="max-width:100%;">
 Version 1.0.7 (Updated)
 
 ### Pre-Requisite
