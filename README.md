@@ -155,7 +155,7 @@ var req4token; // 0 = No(default), 1 = yes
 Chooese your link by uncommenting them. All URL links are commented within the codes. Below is a link to the sandbox version
 ```Javascript
 
-reqURL = 'https://sandbox.molpay.com/RMS/q_by_tid.php';//Query by unique transaction ID (recommended)
+reqURL = 'https://sandbox.merchant.razer.com/RMS/q_by_tid.php';//Query by unique transaction ID (recommended)
 
 ```
 
@@ -204,12 +204,12 @@ The output response will be displayed in the console terminal. Optionally, you c
 
 Support
 -------
-Merchant Technical Support / Customer Care : support-sa@razer.com 
-Marketing Campaign : marketing-sa@razer.com 
-Channel/Partner Enquiry : channel-sa@razer.com 
-Media Contact : media@-sa@razer.com 
-R&D and Tech-related Suggestion : technical-sa@razer.com 
-Abuse Reporting : abuse-sa@razer.com
+- Merchant Technical Support / Customer Care : support-sa@razer.com 
+- Marketing Campaign : marketing-sa@razer.com 
+- Channel/Partner Enquiry : channel-sa@razer.com 
+- Media Contact : media-sa@razer.com 
+- R&D and Tech-related Suggestion : technical-sa@razer.com 
+- Abuse Reporting : abuse-sa@razer.com
 
 ### Disclaimer
 Any amendment by your end is at your own risk.
