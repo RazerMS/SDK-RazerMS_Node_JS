@@ -8,8 +8,8 @@ Version 1.0.7 (Updated)
 3. npm install request
 4. npm install express
 5. npm install body-parser
-6. MOLPay Development or Production ID.
-7. MOLPay General API.
+6. RazerMS Development or Production ID.
+7. RazerMS General API.
 
 For ease of use, a demo version has been uploaded along with a sample html file and all required node modules in a zip file.
 If there is any trouble in using the uploaded package modules, the packages can be easily installed on windows via npm install <packagename> 
@@ -30,7 +30,7 @@ Set which type of enviroment with either sandbox or production
 var enviroment = "sandbox" or "production"
 ```
 ### Payment Page integration
-Set these needed objects that will send the buyer infromation to MOLPay hosted payment page.
+Set these needed objects that will send the buyer infromation to RazerMS hosted payment page.
 ```Javascript
 #Value set are examples
 merchant_id = ''; //Insert merchant id here
@@ -44,7 +44,7 @@ It is not needed to set all the Endpoint URLs. If not set,by default the Endpoin
 <input type="hidden" name="returnurl" id="returnurl" value="http://127.0.0.1:8000/returnurl">
 ```
 ### Payment endpoint integration
-Set the values received from MOLPay's payment page.
+Set the values received from RazerMS's payment page.
 ```Python
 amount = req.body.amount;
 orderid = req.body.orderid;
@@ -75,7 +75,7 @@ nbcb=req.body.nbcb;
 #### Sample of all 3 endpoints
 E.G return & notification & callback URL (all 3 url are using this structure)
 ```Javascript
-//invalid transaction if the key is different. Merchant might issue a requery to MOLPay to double check payment status with MOLPay. 
+//invalid transaction if the key is different. Merchant might issue a requery to RazerMS to double check payment status with RazerMS. 
  if(skey != key1){
         status = -1; // Invalid transaction
     }
@@ -102,17 +102,17 @@ Also, remember to set the environment that you want to work in by including the 
 
 For sandbox:
 ```html
-<script src="https://sandbox.molpay.com/MOLPay/API/seamless/3.16/js/MOLPay_seamless.deco.js"></script>
+<script src="https://sandbox.merchant.razer.com/RMS/API/seamless/3.16/js/MOLPay_seamless.deco.js"></script>
 ```
 
 For production:
 ```html
- <script src="https://www.onlinepayment.com.my/MOLPay/API/seamless/3.17/js/MOLPay_seamless.deco.js"></script>
+ <script src="https://www.onlinepayment.com.my/RMS/API/seamless/3.17/js/MOLPay_seamless.deco.js"></script>
 ```
 
 ### Requery
 For ease of use,a requery feature is added separately as a different file(requery.js).
-The requery feature can be used to check the transaction history. The status query is sent to MOLPay system. 
+The requery feature can be used to check the transaction history. The status query is sent to RazerMS system. 
 We have 5 type of requery method.
 1. Query by unique transaction ID (recommended)
 2. Query by order ID & get latest matched result (single output)
@@ -129,11 +129,11 @@ Further instructions about which variables to use for each query are written wit
 
 //****MANDATORY VARIABLES******//
 
-var vkey = "******"; // //Replace ********** with your MOLPay Secret_Key(MUST HAVE)
+var vkey = "******"; // //Replace ********** with your RazerMS Secret_Key(MUST HAVE)
 var reqURL; // URL link for different requery request. See note below to know which URL to use
 var skey; //This is the data integrity protection hash string. See note below to know which formula to use
 
-var domain = ""; //Merchant ID in MOLPay system
+var domain = ""; //Merchant ID in RazerMS system
 var amount = "";// Transaction amount
 var txID = "";//Unique transaction ID for tracking purpose.
 var oID = ""; //Merchant order ID, which might be duplicated.
@@ -143,7 +143,7 @@ var tIDs = ""; //A group of transaction ID, must be URLencoded
 
 //****OPTIONAL VARIABLES********//
 
-var url = ""; // Merchant's URL web page to receive POST response from MOLPay
+var url = ""; // Merchant's URL web page to receive POST response from RazerMS
 var type= "0"; // set to 0 = for plaintext result(default),  1 = for result via POST method
 var format; //0 = result string with delimiter ( | ), 1 = result in array
 var req4token; // 0 = No(default), 1 = yes
@@ -155,7 +155,7 @@ var req4token; // 0 = No(default), 1 = yes
 Chooese your link by uncommenting them. All URL links are commented within the codes. Below is a link to the sandbox version
 ```Javascript
 
-reqURL = 'https://sandbox.molpay.com/MOLPay/q_by_tid.php';//Query by unique transaction ID (recommended)
+reqURL = 'https://sandbox.molpay.com/RMS/q_by_tid.php';//Query by unique transaction ID (recommended)
 
 ```
 
