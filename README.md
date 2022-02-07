@@ -1,4 +1,4 @@
-## Integrating Razer Merchant Services with Node.js SDK
+## [Mobile SDK] – RazerMS Node JavaScript
 <img src="https://user-images.githubusercontent.com/38641542/74423739-b4440a00-4e8b-11ea-8d95-016d25d26e87.jpg" style="max-width:100%;">
 Version 1.0.7 (Updated)
 
@@ -16,203 +16,8 @@ If there is any trouble in using the uploaded package modules, the packages can 
 or you can just refer here https://www.npmjs.com/ .
 
   
-### Installation
-1. Download the app.js file
-2. Put app.js file in same directory with your project files.
-3. Open command prompt terminal,locate destination of app.js.
-4. Remember to change name inside app.js of 'index.html' to your own html page. (There is only 1 line with index.html)
-5. Run 'node app.js' to execute file.
-6. Open localhost based on given localhost server to access your web page.
-
-### Usage
-Set which type of enviroment with either sandbox or production
-```Javascript
-var enviroment = "sandbox" or "production"
-```
-### Payment Page integration
-Set these needed objects that will send the buyer infromation to RazerMS hosted payment page.
-```Javascript
-#Value set are examples
-merchant_id = ''; //Insert merchant id here
-vkey = ''; //Insert Verify Key here
-amount = '61.01'; //Insert amount here
-orderid = 'OD601'; //Insert order id here, order ID shoud be random generated value by merchant developer side
-```
-It is not needed to set all the Endpoint URLs. If not set,by default the Endpoint URLs would be taken from Merchant Portal's End Point settings.
-```html
-<!-- Value set are examples -->
-<input type="hidden" name="returnurl" id="returnurl" value="http://127.0.0.1:8000/returnurl">
-```
-### Payment endpoint integration
-Set the values received from RazerMS's payment page.
-```Python
-amount = req.body.amount;
-orderid = req.body.orderid;
-tranID  = req.body.tranID ;
-domain  = req.body.domain ;
-status = req.body.status;
-appcode = req.body.appcode;
-paydate = req.body.paydate;
-currency = req.body.currency;
-skey = req.body.skey;
-error_code = req.body.error_code;
-error_desc = req.body.error_desc;
-channel = req.body.channel;
-```
-
-### IPN(Instant Payment Notification)
-Additional object must be set when using IPN
-
-treq = "1" //Value is always 1. Do not change
-
-
-#### Notification & Callback URL with IPN 
-Get additional object for Notification & Callback URL 
-```Python
-nbcb=req.body.nbcb;
-```
-
-#### Sample of all 3 endpoints
-E.G return & notification & callback URL (all 3 url are using this structure)
-```Javascript
-//invalid transaction if the key is different. Merchant might issue a requery to RazerMS to double check payment status with RazerMS. 
- if(skey != key1){
-        status = -1; // Invalid transaction
-    }
-
-    if ( status == "00" ) {
-        if ( check_cart_amt(orderid, amount) ) {
-             /*** NOTE : this is a user-defined function which should be prepared by merchant ***/
-             // action to change cart status or to accept order
-             // you can also do further checking on the paydate as well
-            // write your script here .....
-        }
-    } else {
-        // failure action. Write your script here .....
-    }
-```
-
-### Additional Requirements for Seamless Integration
-If you are using the Seamless version, please ensure that you include this line of code in your html
-```html
-<script type="text/javascript" src="app.js"></script>
-```
-
-Also, remember to set the environment that you want to work in by including the script src below.
-
-For sandbox:
-```html
-<script src="https://sandbox.merchant.razer.com/RMS/API/seamless/3.16/js/MOLPay_seamless.deco.js"></script>
-```
-
-For production:
-```html
- <script src="https://www.onlinepayment.com.my/RMS/API/seamless/3.17/js/MOLPay_seamless.deco.js"></script>
-```
-
-### Requery
-For ease of use,a requery feature is added separately as a different file(requery.js).
-The requery feature can be used to check the transaction history. The status query is sent to RazerMS system. 
-We have 5 type of requery method.
-1. Query by unique transaction ID (recommended)
-2. Query by order ID & get latest matched result (single output)
-3. Query by order ID & get all matched results (batch output)
-4. Query by multiple order ID (batch output)
-5. Query by multiple transaction ID (batch output)
-
-Set the values for requery. The following are variable names are fixed and should not be changed, however you only need to use variables that are needed for a specific requery. Other unused varibles can just be commented or left empty.
-
-Further instructions about which variables to use for each query are written within the codes. It is advised for merchant to take a look at the API specification documentation provided to them as well.
-
-#### Step 1: Insert values into variables that you want to use 
-```Javascript
-
-//****MANDATORY VARIABLES******//
-
-var vkey = "******"; // //Replace ********** with your RazerMS Secret_Key(MUST HAVE)
-var reqURL; // URL link for different requery request. See note below to know which URL to use
-var skey; //This is the data integrity protection hash string. See note below to know which formula to use
-
-var domain = ""; //Merchant ID in RazerMS system
-var amount = "";// Transaction amount
-var txID = "";//Unique transaction ID for tracking purpose.
-var oID = ""; //Merchant order ID, which might be duplicated.
-var oIDs = ""; //Merchant order ID, must be URLencoded. Please note that oIDS and oID is used for different purpose
-var delimiter = "|"; //Default is “|”. Avoid using any symbol that might exist in order ID, and also any of these: “,%, *, <, >, ? , \, $, &, =
-var tIDs = ""; //A group of transaction ID, must be URLencoded
-
-//****OPTIONAL VARIABLES********//
-
-var url = ""; // Merchant's URL web page to receive POST response from RazerMS
-var type= "0"; // set to 0 = for plaintext result(default),  1 = for result via POST method
-var format; //0 = result string with delimiter ( | ), 1 = result in array
-var req4token; // 0 = No(default), 1 = yes
-
-```
-
-#### Step 2: Select the URL that you wish to use based on the query method that you want to get 
-
-Chooese your link by uncommenting them. All URL links are commented within the codes. Below is a link to the sandbox version
-```Javascript
-
-reqURL = 'https://sandbox.merchant.razer.com/RMS/q_by_tid.php';//Query by unique transaction ID (recommended)
-
-```
-
-#### Step 3: Select md5 method based on which query you wish to call
-
-Chooese your md5 method by uncommenting them. The variables for the formula are the ones that would be used. Unused varibles can just be left blank as it is. 
-```Javascript
-
-skey = md5(txID+ domain + vkey + amount); //Query by unique transaction ID (recommended)
-
-```
-
-#### Step 4: Comment out the variables that are unused
-
-```Javascript
-
-form: {
-
-        //Comment out those that are unused
-        /**Mandatory Variables **/
-        
-        amount: amount,
-        txID : txID,
-        tIDs : tIDs,
-        oID : oID,
-        oIDs : oIDs,
-        delimiter : delimiter,
-        domain: domain,
-        skey: skey
-
-        /**Optional**/
-
-        //url : url,
-        //type : type,
-        //format : format,
-        //req4token: req4token
-
-    }
-
-```
-
-#### Step 5 : Execute request.js via command promt: 'node request.js' or just run it from your IDE.
-The output response will be displayed in the console terminal. Optionally, you can send the Post response to to your web page to display it out.
-
-
-
-Support
--------
-- Merchant Technical Support / Customer Care : support-sa@razer.com 
-- Marketing Campaign : marketing-sa@razer.com 
-- Channel/Partner Enquiry : channel-sa@razer.com 
-- Media Contact : media-sa@razer.com 
-- R&D and Tech-related Suggestion : technical-sa@razer.com 
-- Abuse Reporting : abuse-sa@razer.com
-
-### Disclaimer
-Any amendment by your end is at your own risk.
+### Installation Guidance
+[Installation](https://github.com/RazerMS/Node_JS-SDK/wiki/Installation-Guidance)
 
 Changelog
 ----------
@@ -226,3 +31,17 @@ Changelog
 8. 2018-05-21 - v1.0.7 - Updated Seamless version
 9. 2018-06-27 - v1.1.0 - Updated Seamless Demo. Added data verification method
 10. 2018-06-29 - v1.1.1 - Removed unnecessary large node module from demo zip file
+  
+Support
+-------
+- Merchant Technical Support / Customer Care : support-sa@razer.com 
+- Marketing Campaign : marketing-sa@razer.com 
+- Channel/Partner Enquiry : channel-sa@razer.com 
+- Media Contact : media-sa@razer.com 
+- R&D and Tech-related Suggestion : technical-sa@razer.com 
+- Abuse Reporting : abuse-sa@razer.com
+
+### Disclaimer
+Any amendment by your end is at your own risk.
+
+
