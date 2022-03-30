@@ -31,6 +31,17 @@ Changelog
 8. 2018-05-21 - v1.0.7 - Updated Seamless version
 9. 2018-06-27 - v1.1.0 - Updated Seamless Demo. Added data verification method
 10. 2018-06-29 - v1.1.1 - Removed unnecessary large node module from demo zip file
+
+
+## Resources
+
+- GitHub:     https://github.com/RazerMS
+- Website:    https://merchant.razer.com/
+- Twitter:    https://twitter.com/Razer_MS
+- YouTube:    https://www.youtube.com/c/RazerMerchantServices
+- Facebook:   https://www.facebook.com/RazerMerchantServices/
+- Instagram:  https://www.instagram.com/RazerMerchantServices/
+
   
 Support
 -------
